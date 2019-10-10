@@ -79,14 +79,17 @@ class PetDeck extends React.Component {
                   </span>
                 </div>
                 <div className='box'>
-                  <div className='icons'>
-                    <Link to={'/shop'}>
-                      <div className='move-left'>
-                        <img alt='store' width='42' src={require('assets/img/shopicon.png')} />
+                  <div className='icons row'>
+                    <Link to={'/shop'} className='move-left'>
+                      <div>
+                        <img alt='shop' width='42' src={require('assets/img/shopicon.png')} />
                       </div>
                     </Link>
-
-                    <div className='move-right' />
+                    <Link to={'/store'} className='move-right'>
+                      <div>
+                        <img alt='store' width='42' src={require('assets/img/store.png')} />
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </div>
