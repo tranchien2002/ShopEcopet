@@ -1,45 +1,23 @@
 import React from 'react';
-import CarouselCard from 'components/CarouselCard';
-import DefaultCard from 'components/Card/DefaultCard';
-import NewPetModal from 'components/Modal';
+import ShopCarousel from 'components/ShopCarousel';
 import 'components/Deck/Deck.css';
+import petBackground from 'constants/PetBackground';
+import ShopCard from '../../components/ShopCard';
+import { Link } from 'react-router-dom';
+import 'pages/PetDetail/index.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import AccountModal from 'components/AccountModal';
-import { Link } from 'react-router-dom';
-
-class PetDeck extends React.Component {
+class PetShop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenNewPet: false,
-      isOpenAccount: false
+      buy: false
     };
-    this.toggleAccount = this.toggleAccount.bind(this);
-    this.toggleNewPet = this.toggleNewPet.bind(this);
-  }
-
-  toggleNewPet() {
-    this.setState({
-      isOpenNewPet: !this.state.isOpenNewPet
-    });
-  }
-
-  toggleAccount() {
-    this.setState({
-      isOpenAccount: !this.state.isOpenAccount
-    });
   }
 
   render() {
     return (
       <div className='container-custom'>
-        <AccountModal
-          isOpen={this.state.isOpenAccount}
-          toggle={this.toggleAccount}
-          account={this.props.account}
-        />
-        <NewPetModal isOpen={this.state.isOpenNewPet} toggle={this.toggleNewPet} />
         <div className='box-button-create'>
           <div className='row margin-0'>
             <div className='infor-pet col-8'>
@@ -61,31 +39,27 @@ class PetDeck extends React.Component {
                 width='40px'
                 height='40px'
                 className='account-avatar'
-                onClick={this.toggleAccount}
               />
             </div>
           </div>
-          {this.props.pets.length !== 0 ? (
+          {petBackground.length !== 0 ? (
             <div>
               <div className='slide-custom'>
-                <CarouselCard pets={this.props.pets} />
+                <ShopCarousel />
               </div>
               <div className='bottom-mobile'>
-                <div className='circle-btn-create'>
-                  <span className='pushme'>
-                    <span className='inner' onClick={this.toggleNewPet}>
-                      <img alt='pet' src={require('assets/img/784101.png')} />{' '}
+                <div className='circle-btn-home'>
+                  <Link to={`/`}>
+                    <span className='pushme'>
+                      <span className='inner' onClick={this.toggleNewPet}>
+                        <img alt='pet' src={require('assets/img/home-page.png')} />{' '}
+                      </span>
                     </span>
-                  </span>
+                  </Link>
                 </div>
                 <div className='box'>
                   <div className='icons'>
-                    <Link to={'/shop'}>
-                      <div className='move-left'>
-                        <img alt='store' width='42' src={require('assets/img/shopicon.png')} />
-                      </div>
-                    </Link>
-
+                    <div className='move-left' />
                     <div className='move-right' />
                   </div>
                 </div>
@@ -93,7 +67,7 @@ class PetDeck extends React.Component {
             </div>
           ) : (
             <div className='card-create-pet'>
-              <DefaultCard onClick={this.toggleNewPet} />
+              <ShopCard />
             </div>
           )}
         </div>
@@ -108,4 +82,4 @@ const mapStatetoProps = (state) => {
     balance: state.tomo.balance
   };
 };
-export default compose(connect(mapStatetoProps))(PetDeck);
+export default compose(connect(mapStatetoProps))(PetShop);

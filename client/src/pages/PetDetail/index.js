@@ -231,7 +231,11 @@ class PetDetail extends Component {
                     <CircularProgressbarWithChildren
                       value={(this.state.providentFund / this.state.targetFund) * 100}
                     >
-                      <img alt='' src={require('assets/img/giphy.webp')} width='40' />
+                      <img
+                        alt=''
+                        src={Pet[this.state.type].progress[this.state.progress].src}
+                        width='40'
+                      />
                       <div className='fund-circle-tracking-info'>
                         <strong>
                           {this.state.providentFund} / {this.state.targetFund}
