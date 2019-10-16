@@ -6,7 +6,8 @@ const initialState = {
   balance: 0,
   pets: null,
   petsAddress: null,
-  factory: null
+  factory: null,
+  bgShop: null
 };
 
 const tomoReducer = (state = initialState, action) => {
@@ -21,7 +22,8 @@ const tomoReducer = (state = initialState, action) => {
     case actions.INSTANTIATE_CONTRACT:
       return {
         ...state,
-        factory: action.factory
+        factory: action.factory,
+        bgShop: action.bgShop
       };
     case actions.GET_ALL_PETS:
       return {

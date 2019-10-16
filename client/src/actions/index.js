@@ -1,6 +1,7 @@
 import getWeb3 from '../utils/getWeb3';
 import Factory from 'contracts/PetWalletFactory.json';
 import petWallet from 'contracts/PetWallet.json';
+import BackgroundShop from 'contracts/BackgroundShop.json';
 
 export const WEB3_CONNECT = 'WEB3_CONNECT';
 export const web3Connect = () => async (dispatch) => {
@@ -68,9 +69,15 @@ export const instantiateContracts = () => async (dispatch, getState) => {
   let factory = new web3.eth.Contract(Factory.abi, factoryAddress, {
     transactionConfirmationBlocks: 1
   });
+
+  let bgShopAddress = BackgroundShop.networks[networkId].address;
+  let bgShop = new web3.eth.Contract(BackgroundShop.abi, bgShopAddress, {
+    transactionConfirmationBlocks: 1
+  });
   dispatch({
     type: INSTANTIATE_CONTRACT,
-    factory
+    factory,
+    bgShop
   });
 };
 
