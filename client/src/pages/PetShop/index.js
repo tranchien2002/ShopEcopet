@@ -1,10 +1,10 @@
 import React from 'react';
 import ShopCarousel from 'components/ShopCarousel';
+import 'pages/PetDetail/index.css';
 import 'components/Deck/Deck.css';
 import petBackground from 'constants/PetBackground';
 import ShopCard from '../../components/ShopCard';
 import { Link } from 'react-router-dom';
-import 'pages/PetDetail/index.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 class PetShop extends React.Component {
