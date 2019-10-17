@@ -7,7 +7,9 @@ const initialState = {
   pets: null,
   petsAddress: null,
   factory: null,
-  bgShop: null
+  bgShop: null,
+  bgInShop: [],
+  myBg: []
 };
 
 const tomoReducer = (state = initialState, action) => {
@@ -34,6 +36,16 @@ const tomoReducer = (state = initialState, action) => {
       return {
         ...state,
         petsAddress: action.petsAddress
+      };
+    case actions.GET_BACKGROUND_IN_SHOP:
+      return {
+        ...state,
+        bgInShop: action.bgInShop
+      };
+    case actions.GET_MY_BACKGROUND:
+      return {
+        ...state,
+        myBg: action.myBg
       };
     default:
       return state;
