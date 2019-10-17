@@ -61,7 +61,7 @@ contract BackgroundShop {
         Background storage background = backgroundList[_id];
         require(background.inStock > 0);
         require(msg.value >= background.price);
-        if (msg.value > (background.price)) {
+        if (msg.value > (background.price) * 10 ** 18) {
             msg.sender.transfer(msg.value.sub(background.price));
         }
         background.inStock--;

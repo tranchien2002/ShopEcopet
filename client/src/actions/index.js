@@ -147,3 +147,73 @@ export const createNewPet = (petId, targetFund, duration, purpose) => async (
       console.log('Create pet action error', e);
     });
 };
+
+export const BUY_BACKGROUND = 'BUY_BACKGROUND';
+export const buyBackgound = (bgId, price) => async (dispatch, getState) => {
+  const state = getState();
+  const bgShop = state.tomo.bgShop;
+  const account = state.tomo.account;
+  await bgShop.methods
+    .buyBackgound(bgId)
+    .send({ from: account, value: price * 10 ** 18 })
+    .then(() => {
+      console.log('success');
+    })
+    .catch((e) => {
+      console.log('Buy backgound error', e);
+    });
+};
+
+export const GET_BACKGROUND_IN_SHOP = 'GET_BACKGROUND_IN_SHOP';
+export const getBgInShop = () => async (dispatch, getState) => {
+  const state = getState();
+  const bgShop = state.tomo.bgShop;
+  const bgCount = await bgShop.methods.bgCount();
+  let bgInShop = [];
+  for (let i = 0; i < bgCount; i++) {
+    let bg = {
+      id: null,
+      inStock: 0,
+      price: 0,
+      bgOwner: null
+    };
+    let bgInfo = await bgShop.methods.getBackgroundById(i).call();
+    bg.id = bgInfo.id;
+    bg.inStock = bgInfo.inStock;
+    bg.price = bgInfo.price;
+    bg.bgOwner = bgInfo.bgOwner;
+
+    bgInShop.push(bg);
+  }
+  dispatch({
+    type: GET_BACKGROUND_IN_SHOP,
+    bgInShop
+  });
+};
+
+export const GET_MY_BACKGROUND = 'GET_MY_BACKGROUND';
+export const getMyBackground = () => async (dispatch, getState) => {
+  const state = getState();
+  const bgShop = state.tomo.bgShop;
+  const myBgCount = await bgShop.methods.myBackgroundCount().call();
+  let myBg = [];
+  for (let i = 0; i < myBgCount; i++) {
+    let bg = {
+      id: null,
+      inStock: 0,
+      price: 0,
+      bgOwner: null
+    };
+    let bgInfo = await bgShop.methods.getBackgroundById(i).call();
+    bg.id = bgInfo.id;
+    bg.inStock = bgInfo.inStock;
+    bg.price = bgInfo.price;
+    bg.bgOwner = bgInfo.bgOwner;
+
+    myBg.push(bg);
+  }
+  dispatch({
+    type: GET_MY_BACKGROUND,
+    myBg
+  });
+};
